@@ -1,11 +1,9 @@
 using OpenQA.Selenium;
-
-
 namespace SeleniumLoginPageProject.Pages
 {
     public class HomePage
     {
-        private IWebDriver driver;
+        private readonly IWebDriver driver;
         private By welcomeMessage = By.Id("welcome");
         public HomePage(IWebDriver driver)
         {

@@ -6,28 +6,28 @@ namespace SeleniumLoginPageProject.Utilities
 {
     public class WebDriverManager
     {
-       private stattic IWebDriver Driver;
+       private static IWebDriver driver;
        
 
             public static IWebDriver GetDriver()
         {
-            if (Driver == null)
+            if (driver == null)
             {
-                Driver = new ChromeDriver();
-                Driver.Manage().Window.Maximize();
-                Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+                driver = new ChromeDriver();
+                driver.Manage().Window.Maximize();
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             }
-            return Driver;
+            return driver;
         }
 
 
 
         public static void  QuitDriver()
         {
-            if (Driver != null)
+            if (driver != null)
             {
-                Driver.Quit();
-                Driver = null;
+                driver.Quit();
+                driver = null;
             }
         }
     }

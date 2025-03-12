@@ -1,16 +1,15 @@
-using openQA.Selenium;
+using NUnit.Framework.Internal;
+using OpenQA.Selenium;
+
 
 namespace SeleniumLoginPageProject.Pages
 {
     public class LoginPage
     {
-       private IWebDriver driver;
-        private By usernameField = By.Id("username");
+        private IWebDriver driver;
+        private By usernameField = By.Id("userName");
         private By passwordField = By.Id("password");
-        private By loginButton = By.CssSelector("button[type='submit']");
-
-
-
+        private By loginButton = By.Id("login");
 
         public LoginPage(IWebDriver driver)
         {
@@ -27,7 +26,7 @@ namespace SeleniumLoginPageProject.Pages
             driver.FindElement(passwordField).SendKeys(password);
         }
 
-        public void ClickLoginButton()
+        public void ClickLoginButton()//test page has loaded
         {
             driver.FindElement(loginButton).Click();
         }
@@ -37,11 +36,8 @@ namespace SeleniumLoginPageProject.Pages
             EnterUsername(username);
             EnterPassword(password);
             ClickLoginButton();
+           
             return new HomePage(driver);
         }
-
-
-
-
     }
 }
