@@ -30,7 +30,7 @@ namespace SeleniumLoginPageProject.Tests
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         protected static ExtentReports extent;
         protected  ExtentTest test;
-        protected EventFiringWebDriver eventDriver; // Changed type to EventFiringWebDriver
+        protected EventFiringWebDriver eventDriver; 
         private WebDriverListener listener;
 
         protected ScreenshotHelper screenshot;
@@ -63,6 +63,7 @@ namespace SeleniumLoginPageProject.Tests
             logger.Info("Browser launched");
             driver.Url = "https://demoqa.com/login";
             loginPage = new LoginPage(driver);
+            registerPage = new RegisterPage(driver); 
             logger.Info("Navigated to login page");
             screenshot = new ScreenshotHelper(driver);
            listener = new WebDriverListener(extent);
@@ -74,6 +75,9 @@ namespace SeleniumLoginPageProject.Tests
         [Test]
         public void LoginPageLoadedTest()
         {
+            
+
+
             test = extent.CreateTest("Login Page Loaded Test");
             listener.setTest(test);
             logger.Info("Starting logger test");
@@ -96,9 +100,9 @@ namespace SeleniumLoginPageProject.Tests
             test = extent.CreateTest("Login Test");
             logger.Info("Starting logger test");
 
-            registerPage.Register("firstName", "lastName", "username", "P@ssw0rd!");
+           
 
-            loginPage.Login("username", "password");
+            loginPage.Login("ValidUser1", "Valid@123");
             test.Info("Logging in with valid credentials");
             test.Pass("Login successful");
         }

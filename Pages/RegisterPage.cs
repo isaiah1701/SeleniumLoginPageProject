@@ -5,6 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Chrome;
+
+
+
 
 namespace BookStoreProject.Pages
 {
@@ -17,11 +22,11 @@ namespace SeleniumLoginPageProject.Pages
         public class RegisterPage
         {
             private IWebDriver driver;
-            private By firstNameField = By.Id("firstName");
+            private By firstNameField = By.Id("firstname");
             private By lastNameField = By.Id("lastName");
             private By usernameField = By.Id("userName");
-            private By passwordField = By.Id("password");
-            private By captchaCheckbox = By.CssSelector("div.recaptcha-checkbox-border");
+            private By passwordField = By.Id("Password");
+            private By captchaCheckbox = By.Id("recaptcha-anchor");
 
             public RegisterPage(IWebDriver driver)
             {
@@ -30,32 +35,35 @@ namespace SeleniumLoginPageProject.Pages
 
             public void EnterFirstName(string firstName)
             {
-                driver.FindElement(firstNameField).SendKeys(firstName);
+                driver.FindElement(By.Id("firstname")).SendKeys(firstName);
             }
 
             public void EnterLastName(string lastName)
             {
-                driver.FindElement(lastNameField).SendKeys(lastName);
+                driver.FindElement(By.Id("lastname")).SendKeys(lastName);
             }
 
             public void EnterUsername(string username)
             {
-                driver.FindElement(usernameField).SendKeys(username);
+                driver.FindElement(By.Id("userName")).SendKeys(username);
             }
 
+           
             public void EnterPassword(string password)
             {
-                driver.FindElement(passwordField).SendKeys(password);
+                driver.FindElement(By.Id("password")).SendKeys(password);
             }
 
-            public void ClickCaptcha()
+
+
+           
+
+            public void Scroll(int x, int y)
             {
-                var captchaElement = driver.FindElement(captchaCheckbox);
-                if (captchaElement.Displayed)
-                {
-                    captchaElement.Click();
-                }
+                IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+                js.ExecuteScript($"window.scrollBy({x},{y})");
             }
+
 
 
             public void NavigateToRegisterPage()
@@ -80,7 +88,11 @@ namespace SeleniumLoginPageProject.Pages
 
 
 
-
+            public void clickAlert()
+            {
+                IAlert alert = driver.SwitchTo().Alert();
+                alert.Accept();
+            }
 
 
             public void Register(string firstName, string lastName, string username, string password)
@@ -91,7 +103,8 @@ namespace SeleniumLoginPageProject.Pages
                 EnterLastName(lastName);
                 EnterUsername(username);
                 EnterPassword(password);
-                ClickCaptcha();
+                Scroll(0, 300);
+               
                 ClickRegister();
                 GoToLogin();    
             }

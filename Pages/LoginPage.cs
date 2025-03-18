@@ -45,7 +45,10 @@ namespace SeleniumLoginPageProject.Pages
         }
 
 
-
+        public void NavigateToLoginPage()
+        {
+            driver.Url = "https://demoqa.com/login";
+        }   
 
 
         public void Login(string username, string password)
