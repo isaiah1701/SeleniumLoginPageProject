@@ -1,5 +1,6 @@
 using NUnit.Framework.Internal;
 using OpenQA.Selenium;
+using SeleniumLoginPageProject.Utilities;
 
 
 namespace SeleniumLoginPageProject.Pages
@@ -16,6 +17,12 @@ namespace SeleniumLoginPageProject.Pages
             this.driver = driver;
         }
 
+        public bool IsCurrentPage()
+        {
+            return driver.Url.Contains("demoqa.com/login");
+        }
+
+
         public void EnterUsername(string username)
         {
             driver.FindElement(usernameField).SendKeys(username);
@@ -31,13 +38,26 @@ namespace SeleniumLoginPageProject.Pages
             driver.FindElement(loginButton).Click();
         }
 
-        public HomePage Login(string username, string password)
+
+        public void clickNewUser()
         {
+            driver.FindElement(By.Id("newUser")).Click();
+        }
+
+
+
+
+
+        public void Login(string username, string password)
+        {
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("window.scrollBy(0,300)");
             EnterUsername(username);
             EnterPassword(password);
             ClickLoginButton();
            
-            return new HomePage(driver);
+             
         }
     }
 }
